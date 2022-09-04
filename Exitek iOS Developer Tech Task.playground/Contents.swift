@@ -14,7 +14,7 @@ struct Mobile: Hashable {
 }
 
 enum MobileStorageError: Error {
-    case notPhoneInMemory
+    case noPhoneInMemory
     case thisPhoneAlreadyExists
 }
 
@@ -43,7 +43,7 @@ class StorageManager: MobileStorage {
         if mobiles.contains(product){
             mobiles.remove(product)
         }else{
-            throw MobileStorageError.notPhoneInMemory
+            throw MobileStorageError.noPhoneInMemory
         }
     }
     
