@@ -13,6 +13,10 @@ struct Mobile: Hashable {
     let model: String
 }
 
+enum MobileStorageError: Error {
+    case notPhoneInMemory
+    case thisPhoneAlreadyExists
+}
 
 class StorageManager: MobileStorage {
     private var mobiles = Set<Mobile>()
@@ -26,6 +30,9 @@ class StorageManager: MobileStorage {
     }
     
     func save(_ mobile: Mobile) throws -> Mobile {
+        if mobiles.contains(mobile) {
+            throw MobileStorageError.thisPhoneAlreadyExists
+        }
         mobiles.insert(mobile)
         return mobile
     }
@@ -33,6 +40,8 @@ class StorageManager: MobileStorage {
     func delete(_ product: Mobile) throws {
         if mobiles.contains(product){
             mobiles.remove(product)
+        }else{
+            throw MobileStorageError.notPhoneInMemory
         }
     }
     
