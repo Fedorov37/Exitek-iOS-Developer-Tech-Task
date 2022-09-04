@@ -32,9 +32,11 @@ class StorageManager: MobileStorage {
     func save(_ mobile: Mobile) throws -> Mobile {
         if mobiles.contains(mobile) {
             throw MobileStorageError.thisPhoneAlreadyExists
+        }else{
+            mobiles.insert(mobile)
+            return mobile
         }
-        mobiles.insert(mobile)
-        return mobile
+        
     }
     
     func delete(_ product: Mobile) throws {
